@@ -1,0 +1,35 @@
+@page "/"
+
+<h1 class="title">🌡️ IoT Dashboard</h1>
+
+<div class="card">
+    <p>دمای فعلی: <b>@temperature</b> °C</p>
+    <p>رطوبت: <b>@humidity</b> %</p>
+
+    <button class="btn" @onclick="UpdateValues">🔄 به‌روزرسانی داده‌ها</button>
+
+    <div class="led-section">
+        <p>LED: <b>@(ledOn ? "روشن 💡" : "خاموش ⚫")</b></p>
+        <button class="btn-led" @onclick="ToggleLed">
+            @(ledOn ? "خاموش کن" : "روشن کن")
+        </button>
+    </div>
+</div>
+
+@code {
+    double temperature = 24.5;
+    double humidity = 55.0;
+    bool ledOn = false;
+
+    void UpdateValues()
+    {
+        var rand = new Random();
+        temperature = Math.Round(rand.NextDouble() * 10 + 20, 1); // 20-30°C
+        humidity = Math.Round(rand.NextDouble() * 30 + 40, 1);    // 40-70%
+    }
+
+    void ToggleLed()
+    {
+        ledOn = !ledOn;
+    }
+}
